@@ -1,0 +1,103 @@
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{
+    font-family: 'Roboto', sans-serif;
+    color:#fff;
+}
+
+body{
+    display:flex; flex-flow:column nowrap;
+    justify-content:center; align-items:center;
+    width:100%;min-height:100vh;
+    background:#222; color:#fff;
+}
+
+.container{
+    display:flex; flex-flow:row wrap;
+    justify-content:center; align-items:center;
+    gap:40px;
+    position:relative;
+    width:min(calc(100% - 40px), 520px);
+}
+
+.card{
+    display:flex; flex-flow:row wrap;
+    justify-content:center; align-items:center;
+    position:relative;
+    /* width:max(220px,calc(50% - 40px));  */
+    /* aspect-ratio:1/1.13; */
+    width:220px; height:260px;
+    background:#2a2a2a;
+}
+
+.percent{
+    position:relative;
+    width:66%; aspect-ratio:1/1;
+    /* background:#fff; */
+}
+
+.percent svg{
+    position:relative;
+    /* width:100%;height:100%; */
+    width:150px;height:150px;
+    transform:rotate(270deg);
+}
+
+.percent svg circle{
+    width:100%;height:100%;
+    fill:transparent;
+    stroke-width:2;
+    stroke:#191919;
+}
+
+.percent svg circle:last-child{
+    stroke:var(--clr);
+    stroke-dasharray:440;
+    stroke-dashoffset: 440; /* 아무것도 안보이게 */
+    stroke-dashoffset: calc(440 - (440 * var(--num)) / 100);
+    animation: fadeIn .5s 2.5s linear both;
+}
+
+.dot{
+    position:absolute; z-index:10;
+    inset:5px;
+    /* 360deg / 100 = 3.6 */
+    animation: aniDot 2s linear forwards;
+}
+.dot::before{
+    content:'';display:block;position:absolute;
+    left:52%;
+    width:10px; aspect-ratio:1/1;
+    background:var(--clr);
+    border-radius:50%;
+    box-shadow: 0 0 10px var(--clr),
+                0 0 30px var(--clr);
+}
+
+.number{
+    position:absolute;
+    inset:0;
+    display:flex;flex-flow:column nowrap;
+    justify-content:center; align-items:center;
+    text-align:center;
+    animation: fadeIn 1s 2.8s linear both;
+}
+
+.number h2{font-size:2.5rem;}
+
+.number h2::after{content:'%'; font-size:.5em; font-weight:300;}
+
+.number p{font-size:0.875rem; text-transform:uppercase; margin-top:.25em;  opacity:.75;}
+
+@keyframes aniDot {
+    from{transform:rotate(0deg)}
+    to{transform:rotate(calc( 3.6deg * var(--num) ));}
+}
+
+@keyframes fadeIn {
+    from{opacity:0;}
+    to{opacity:1;}
+}
+
